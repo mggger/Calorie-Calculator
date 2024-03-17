@@ -20,7 +20,7 @@ const CustomHead = () => {
             <link rel="apple-touch-icon" sizes="180x180" href="https://cc.gptdevelopment.online/favicon.ico"/>
             <link rel="icon" type="image/png" sizes="32x32" href="https://cc.gptdevelopment.online/favicon.ico"/>
             <link rel="icon" type="image/png" sizes="16x16" href="https://cc.gptdevelopment.online/favicon.ico"/>
-            <link rel="shortcut icon" href="https://cc.gptdevelopment.online/favicon/favicon.ico" type="image/x-icon"/>
+            <link rel="shortcut icon" href="https://cc.gptdevelopment.online/favicon.ico" type="image/x-icon"/>
             <link rel="canonical" href="https://cc.gptdevelopment.online/"/>
             <meta name="keywords" content={keywords}/>
             <meta name="application-name" content={siteTitle}/>
