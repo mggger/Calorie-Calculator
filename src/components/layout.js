@@ -1,6 +1,6 @@
 
 import {Footer} from "@/components/footer";
-import {Header} from "@/components/haeder"; // 确保路径正确
+import {Header} from "@/components/haeder";
 
 
 const Layout = ({ children }) => {

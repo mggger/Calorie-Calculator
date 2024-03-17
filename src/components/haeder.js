@@ -1,6 +1,5 @@
 import React from 'react';
 import Head from 'next/head'
-import GoogleAnalytics from "@/components/analyse";
 
 const CustomHead = () => {
     const siteTitle = 'AI Calorie Calculator | Food Recognition'
