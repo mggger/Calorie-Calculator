@@ -6,7 +6,7 @@ const CustomHead = () => {
     const siteTitle = 'AI Calorie Calculator | Food Recognition'
 
     const description = 'Utilize AI technology to recognize food images and generate calorie statistics, helping you better manage your dietary health.'
-    const pageImage = 'https://cc.gptdevelopment.online/cor.webp';
+    const pageImage = 'https://aicc.gptdevelopment.online/cor.webp';
     const keywords = 'AI, food recognition, calorie counting, calorie statistics， Calorie Calculator， AI Calorie Calculator， Do Calorie Calculator， '
 
 
@@ -25,13 +25,13 @@ const CustomHead = () => {
             <meta name="application-name" content={siteTitle}/>
             <meta property="og:description" content={description}/>
             <meta property="og:site_name" content={siteTitle}/>
-            <meta property="og:url" content="https://cc.gptdevelopment.online/"/>
+            <meta property="og:url" content="https://aicc.gptdevelopment.online/"/>
             <meta property="og:locale" content="en_US"/>
             <meta property="og:image" content={pageImage}/>
             <meta property="og:image:secure_url" content={pageImage}/>
             <meta property="og:type" content="website"/>
             <meta name="twitter:card" content={siteTitle}/>
-            <meta name="twitter:site" content="https://cc.gptdevelopment.online/"/>
+            <meta name="twitter:site" content="https://aicc.gptdevelopment.online/"/>
             <meta name="twitter:image" content={pageImage}/>
             <meta name="twitter:description" content={description}/>
         </Head>
