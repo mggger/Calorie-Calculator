@@ -44,7 +44,6 @@ export const Header = () => {
     return (
         <div>
             <CustomHead/>
-            <GoogleAnalytics/>
             <header className="bg-base-100 shadow-lg">
                 <div className="container mx-auto flex justify-between items-center p-5">
                     {/* Logo Section */}
