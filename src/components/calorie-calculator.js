@@ -37,7 +37,7 @@ export const CalorieCalculatorPage = () => {
         return (
             <div className="text-center p-4">
                 <input id="upload" type="file" accept="image/*" onChange={onUpload} className="hidden" />
-                <div className="image-container h-[380px]  w-full bg-white rounded-lg overflow-hidden">
+                <div className="image-container h-[380px] md:h-[200px] lg:h-[380px] w-full bg-white rounded-lg overflow-hidden">
                     {uploadedImage && <img src={uploadedImage} alt="Uploaded Food" className="w-full h-full object-cover" />}
                 </div>
             </div>
@@ -81,28 +81,28 @@ export const CalorieCalculatorPage = () => {
 
     const FoodDetection = () => {
         if (foodItems.length === 0) {
-            return <div className="md:flex-1 h-auto flex flex-col justify-between bg-base-100 rounded-box shadow ">
-                <h2 className="text-2xl font-bold text-center mb-4 text-gray-700 py-4">
+            return <div className="md:flex-1 h-auto flex flex-col justify-between bg-base-100 rounded-box shadow">
+                <h2 className="text-xl md:text-2xl font-bold text-center mb-4 text-gray-700 py-4">
                     Your food analysis report
                 </h2>
             </div>;
         }
 
         return (
-            <div className="md:flex-1 h-auto flex flex-col justify-between bg-base-100 rounded-box shadow ">
+            <div className="md:flex-1 h-auto flex flex-col justify-between bg-base-100 rounded-box shadow">
                 <div className="p-4">
-                    <h2 className="text-2xl font-bold text-center mb-4 text-gray-700">Detected Food Items</h2>
+                    <h2 className="text-xl md:text-2xl font-bold text-center mb-4 text-gray-700">Detected Food Items</h2>
                     <div className="flex flex-wrap gap-2 justify-center items-center">
                         {foodItems.map((item, index) => (
                             <span key={index} className="badge badge-primary badge-outline p-4 text-sm md:text-base">
-                            {item}
-                        </span>
+                                {item}
+                            </span>
                         ))}
                     </div>
                 </div>
                 <div className="divider divider-horizontal"></div>
                 <div className="py-4 px-4 text-center">
-                    <h3 className="text-lg font-semibold text-gray-700">Total Calories:</h3>
+                    <h3 className="text-lg md:text-xl font-semibold text-gray-700">Total Calories:</h3>
                     <p className="text-2xl font-bold text-blue-600">{totalCalories} cal</p>
                 </div>
             </div>
@@ -110,19 +110,19 @@ export const CalorieCalculatorPage = () => {
     };
 
     return (
-        <div className="flex flex-col items-center justify-center min-h-screen">
+        <div className="flex flex-col items-center justify-center min-h-screen px-2">
             {isLoading && (
-                <LoadingSpinner/>
+                <LoadingSpinner />
             )}
             <div className="container max-w-4xl p-5 bg-base-100 shadow-xl rounded-lg">
-                <h1 className="text-3xl font-bold text-center mb-4">Calorie Calculator</h1>
+                <h1 className="text-2xl md:text-3xl font-bold text-center mb-4">Calorie Calculator</h1>
                 <label htmlFor="upload" className="btn btn-primary cursor-pointer mb-4">
                     Upload your food image
                 </label>
 
                 <div className="flex flex-col md:flex-row gap-4 items-start">
                     <div className="flex-1">
-                        <div className="image-upload-area border-2 border-dashed border-gray-300 rounded-lg flex justify-center items-center relative text-center bg-white">
+                        <div className="image-upload-area border-2 border-dashed h-[380px] md:h-[200px] lg:h-[380px] border-gray-300 rounded-lg flex justify-center items-center relative text-center bg-white">
                             <ImageUpload onUpload={handleImageUpload} uploadedImage={uploadedImage} />
                             {!uploadedImage && (
                                 <div className="absolute inset-0 flex flex-col justify-center items-center text-gray-500">
