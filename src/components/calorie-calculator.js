@@ -2,7 +2,9 @@ import { useState } from "react";
 import LoadingSpinner from "@/components/spinner";
 import {AlertModal} from "@/components/model/alert";
 
+// Defines the main component for the calorie calculator page
 export const CalorieCalculatorPage = () => {
+    // State hooks for managing various states
     const [uploadedImage, setUploadedImage] = useState(null);
     const [foodItems, setFoodItems] = useState([]);
     const [totalCalories, setTotalCalories] = useState(0);
@@ -16,8 +18,8 @@ export const CalorieCalculatorPage = () => {
         if (file) {
             try {
                 const base64Image = await getBase64(file);
-                setUploadedImage(base64Image); // 使用Base64编码的图片更新状态
-                sendImageToServer(base64Image); // 发送Base64编码的图片到服务器
+                setUploadedImage(base64Image); // Updates state with the base64 encoded image
+                sendImageToServer(base64Image); // Sends the base64 encoded image to the server
             } catch (error) {
                 console.error('Error reading file:', error);
             }
@@ -27,12 +29,13 @@ export const CalorieCalculatorPage = () => {
     const getBase64 = (file) => {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
-            reader.onload = () => resolve(reader.result); // 成功解析文件时解决Promise
-            reader.onerror = error => reject(error); // 文件读取失败时拒绝Promise
-            reader.readAsDataURL(file); // 以Base64格式读取文件
+            reader.onload = () => resolve(reader.result); // Resolves the promise upon successful file read
+            reader.onerror = error => reject(error); // Rejects the promise if file reading fails
+            reader.readAsDataURL(file); // Reads the file as a base64 data URL
         });
     };
 
+    // Component for uploading images
     const ImageUpload = ({ onUpload, uploadedImage }) => {
         return (
             <div className="text-center p-4">
@@ -44,6 +47,7 @@ export const CalorieCalculatorPage = () => {
         );
     };
 
+    // Sends the base64 encoded image to the server for processing
     const sendImageToServer = (base64Image) => {
         setLoading(true);
         fetch('/api/detect_food', {
@@ -76,9 +80,10 @@ export const CalorieCalculatorPage = () => {
             });
     };
 
+    // Closes the alert modal
     const closeAlertModal = () => setShowAlert(false);
 
-
+    // Component displaying the result of food detection
     const FoodDetection = () => {
         if (foodItems.length === 0) {
             return <div className="md:flex-1 h-auto flex flex-col justify-between bg-base-100 rounded-box shadow">
