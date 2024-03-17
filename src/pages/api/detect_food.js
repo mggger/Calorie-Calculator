@@ -1,13 +1,15 @@
 export const runtime = 'experimental-edge';
 
+// Function to detect food and calories from a base64 encoded image
 async function detectFoodAndCalories(base64Image) {
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_AI_API_KEY;
-    const model = 'gemini-pro-vision'; // 指定使用的模型
+    const model = 'gemini-pro-vision'; // Specified model for detection
     const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
 
+    // Extract MIME type and pure base64 data from the image string
     const match = base64Image.match(/^data:(image\/\w+);base64,(.*)$/);
     if (!match) {
-        throw new Error('Invalid image data');
+        throw new Error('Invalid image data format.');
     }
 
     const mimeType = match[1];
@@ -17,7 +19,9 @@ async function detectFoodAndCalories(base64Image) {
         contents: [
             {
                 parts: [
-                    {text: 'Identify the food in this picture and estimate the calories. Please make sure to return the content in this structure as JSON. {"items": ["ice", "apple"], "total_calories": xx} Just return JSON, do not include other content.'},
+                    {
+                        text: 'Identify the food in this picture and estimate the calories. Please make sure to return the content in this structure as JSON. {"items": ["ice", "apple"], "total_calories": xx} Just return JSON, do not include other content.'
+                    },
                     {
                         inline_data: {
                             mime_type: mimeType,
@@ -30,7 +34,6 @@ async function detectFoodAndCalories(base64Image) {
     };
 
     try {
-        console.log("fetch");
         const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
@@ -39,44 +42,57 @@ async function detectFoodAndCalories(base64Image) {
             body: JSON.stringify(requestBody)
         });
 
+        if (!response.ok) {
+            throw new Error(`API call failed with status: ${response.status}, ${await response.text()}`);
+        }
+
         const data = await response.json();
         const text = data.candidates[0].content.parts[0].text;
-        const regex = /\{.*?\}/s; // The 's' flag allows . to match newline characters
+        const regex = /\{.*?\}/s; // The 's' flag allows '.' to match newline characters
         const match = text.match(regex);
 
+        if (!match) {
+            throw new Error('No valid JSON found in the response.');
+        }
+
         const jsonStr = match[0];
-        console.log("Found JSON string:", jsonStr);
-
         const parsedData = JSON.parse(jsonStr);
-        console.log("Parsed JSON:", parsedData);
 
-        // Extract and return the items and total_calories from the parsed JSON
+        // Return the extracted items and total_calories from the parsed JSON
         return {
-            success: true,
             items: parsedData.items,
             count: parsedData.total_calories
         };
     } catch (error) {
-        console.error('调用API失败:', error);
-        return {
-            success: false,
-            message: error.message // 使用标准的错误消息属性
-        };
+        console.error('API call failed:', error);
+        throw new Error(`Failed to detect food and calories: ${error.message}`);
     }
 }
 
-
-export default async function handler(req, res) {
+// Handler for the Cloudflare Worker
+export default async function handler(req) {
     if (req.method === 'POST') {
-        const {image} = req.body;
         try {
-            const {items, count} = await detectFoodAndCalories(image);
-            res.status(200).json({items, count});
+            const { image } = await req.json(); // Parse the image from the POST request's body
+            const { items, count } = await detectFoodAndCalories(image);
+
+            // Create and return a successful response
+            return new Response(JSON.stringify({ items, count, success: true }), {
+                headers: { 'Content-Type': 'application/json' },
+                status: 200
+            });
         } catch (error) {
-            res.status(500).json({error: error.message});
+            // Create and return an error response
+            return new Response(JSON.stringify({ success: false, message: error.message }), {
+                headers: { 'Content-Type': 'application/json' },
+                status: 500
+            });
         }
     } else {
-        res.setHeader('Allow', ['POST']);
-        res.status(405).end(`Method ${req.method} Not Allowed`);
+        // Return a 405 Method Not Allowed response for non-POST requests
+        return new Response(`Method ${req.method} Not Allowed`, {
+            headers: { 'Allow': 'POST' },
+            status: 405
+        });
     }
 }
