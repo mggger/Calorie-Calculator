@@ -119,6 +119,13 @@ export const CalorieCalculatorPage = () => {
             {isLoading && (
                 <LoadingSpinner />
             )}
+            <div className="alert alert-info bg-blue-100 shadow-lg max-w-4xl w-full mb-4">
+                <div>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current flex-shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    <span>This is a Free Online Tool.Please note that we use Google Gemini AI, which has a limit of 2 requests per minute. If you encounter any errors, please try again.</span>
+                </div>
+            </div>
+
             <div className="container max-w-4xl p-5 bg-base-100 shadow-xl rounded-lg">
                 <h1 className="text-2xl md:text-3xl font-bold text-center mb-4">Calorie Calculator</h1>
                 <label htmlFor="upload" className="btn btn-primary cursor-pointer mb-4">
@@ -137,6 +144,8 @@ export const CalorieCalculatorPage = () => {
                             )}
                         </div>
                     </div>
+
+
 
                     <FoodDetection />
                 </div>
