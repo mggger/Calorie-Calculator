@@ -2,7 +2,7 @@
 
 This project allows users to upload images of food. Utilizing AI technology, it identifies the food in the images and displays the identified food along with the total calorie count. This is a useful tool for those interested in tracking their dietary intake or simply curious about the caloric content of various foods.
 
-![example1](https://github.com/mggger/Calorie-Calculator/images/example1.png)
+![example1](https://github.com/mggger/Calorie-Calculator/blob/main/images/example1.png)
 
 ## Getting Started
 
