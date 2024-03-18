@@ -1,5 +1,11 @@
 export const runtime = 'experimental-edge';
 
+export const config = {
+    api: {
+        responseLimit: '100mb',
+    },
+}
+
 // Function to detect food and calories from a base64 encoded image
 async function detectFoodAndCalories(base64Image) {
     const apiKey = process.env.NEXT_PUBLIC_GOOGLE_AI_API_KEY;
