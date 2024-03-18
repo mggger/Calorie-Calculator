@@ -2,8 +2,7 @@ export const runtime = 'experimental-edge';
 
 export const config = {
     api: {
-        responseLimit: false,
-        bodyParser: false
+        responseLimit: '100mb',
     },
 }
 
